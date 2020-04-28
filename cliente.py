@@ -6,7 +6,9 @@ socketCliente = skt.socket(skt.AF_INET, skt.SOCK_STREAM)
 
 socketCliente.connect((direccionServidor, puertoServidor))
 
-send = input("Blah: ")
+send = "webcode.me"
+
+
 
 socketCliente.send(send.encode())
 
