@@ -1,6 +1,6 @@
 import socket as skt
 
-puertoServidor = 61234
+puertoServidor = 61235
 
 
 socketServidor = skt.socket(skt.AF_INET, skt.SOCK_STREAM)
@@ -25,15 +25,25 @@ while True:
 
     socketURL.sendall(request.encode())
 
-    while True:
+    data = socketURL.recv(1024)
 
-        data = socketURL.recv(1024)
+    respuesta = data.decode()
 
-        if data.decode() == "\r\n":
+    n = 0
+
+    for char in respuesta:
+        if char == '\r' and respuesta[n+1] == '\n' and respuesta[n+2] == '\r':
+            endHeader= n+2
             break
+            
+            
 
-        print(data.decode(),len(data.decode()) )
-        
+        n = n+1
+
+    print(respuesta[:n])
+    #lista = respuesta.split("\r\n")
+    
+    #print(lista)
     # hay que leer linea por linea el data
     #respuesta = "queso"
     #socketCliente.send(respuesta.encode())
