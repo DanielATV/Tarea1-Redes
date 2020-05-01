@@ -1,6 +1,7 @@
 import socket as skt
 
-puertoServidor = 61235
+puertoServidor = 61334
+puertoUDP = 60238
 
 
 socketServidor = skt.socket(skt.AF_INET, skt.SOCK_STREAM)
@@ -40,11 +41,40 @@ while True:
 
         n = n+1
 
-    print(respuesta[:n])
+    headerUrl = respuesta[:n]
+
+    #mandarPuerto = "OK_"+ str(puertoUDP)
+
+    msg2= str(puertoUDP)
+
+
+    
     #lista = respuesta.split("\r\n")
     
     #print(lista)
-    # hay que leer linea por linea el data
-    #respuesta = "queso"
-    #socketCliente.send(respuesta.encode())
+
+
+    #Socket UDP
+    socketUDP = skt.socket(skt.AF_INET,skt.SOCK_DGRAM)
+    socketUDP.bind(('',puertoUDP))
+
+    socketCliente.send(msg2.encode())
+
+    mensajeUDP, asd = socketUDP.recvfrom(2048)
+    print(mensajeUDP)
+
+    
+
+    if mensajeUDP.decode() == "OK":
+        print("Entre")
+        socketUDP.sendto(headerUrl.encode(),asd)
+        print("Envie")
+        
+
+    socketUDP.close()
+    
+
+    
+
+
     socketCliente.close()
