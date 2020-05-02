@@ -10,25 +10,24 @@ socketServidor.bind(('', puertoServidor))
 socketServidor.listen(1)
 
 
-socketCliente, direccionCliente = socketServidor.accept()
 
 while True:
 
-    print("Empieza el while")
+    print("Esperando clientes")
+    socketCliente, direccionCliente = socketServidor.accept()
 
+    while True:
 
-   
-    
-    mensaje = socketCliente.recv(2048).decode()
-    print("Recivio mensaje")
+        print("Cliente conectado")
+        mensaje = socketCliente.recv(2048).decode()
+        
 
-    if mensaje == "terminate":
-        socketCliente.close()
-    
+        if mensaje == "terminate":
+            socketCliente.close()
+            print("Cliente desconectado")
+            break
 
-    else:
-
-        print("Else")
+        #Socket TCP para consulta HTTP
 
         socketURL = skt.socket(skt.AF_INET, skt.SOCK_STREAM)
 
@@ -43,6 +42,8 @@ while True:
 
         respuesta = data.decode()
 
+        #Rescartar Header
+
         n = 0
 
         for char in respuesta:
@@ -56,15 +57,7 @@ while True:
 
         headerUrl = respuesta[:n]
 
-        #mandarPuerto = "OK_"+ str(puertoUDP)
-
         msg2= str(puertoUDP)
-
-
-        
-        #lista = respuesta.split("\r\n")
-        
-        #print(lista)
 
 
         #Socket UDP
@@ -79,15 +72,9 @@ while True:
         
 
         if mensajeUDP.decode() == "OK":
-            print("Entre")
+            print("Empezando transferencia")
             socketUDP.sendto(headerUrl.encode(),asd)
-            print("Envie")
+            print("Termino de transferencia")
             
 
         socketUDP.close()
-        
-
-    
-
-
-    
