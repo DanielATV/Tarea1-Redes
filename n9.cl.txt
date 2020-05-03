@@ -1,0 +1,12 @@
+HTTP/1.1 301 Moved Permanently
+Date: Sun, 03 May 2020 21:22:17 GMT
+Content-Type: text/html; charset=iso-8859-1
+Transfer-Encoding: chunked
+Connection: keep-alive
+Set-Cookie: __cfduid=dfc1bea996093159f4bc5708cff0fc6c01588540936; expires=Tue, 02-Jun-20 21:22:16 GMT; path=/; domain=.n9.cl; HttpOnly; SameSite=Lax
+Location: https://n9.cl/
+CF-Cache-Status: DYNAMIC
+Server: cloudflare
+CF-RAY: 58dd09579a67859e-SCL
+cf-request-id: 027e042abc0000859ee8ae4200000001
+

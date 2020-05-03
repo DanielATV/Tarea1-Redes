@@ -1,7 +1,56 @@
 import socket as skt
 
-puertoServidor = 60339
-puertoUDP = 60239
+#funciones para el cache
+
+def leer_Cache():
+    try:
+        arch = open("cache.txt","r")
+        l=[]
+        a = ""
+        name = ""
+        for i in arch:
+
+            comparar = i.strip()
+            
+         
+            if(a == "" and name== ""):
+                name = i
+                name=name.strip()
+                continue
+            if(comparar == "----------"):
+                print("entre")
+                l.append((name,a))
+                a = ""
+                name=""
+                continue
+            a += i
+        arch.close()
+        return l
+
+    except:
+        arch = open("cache.txt","w")
+        arch.close()
+        l = []
+        return l
+
+def escribir_cache(l):
+    arch = open("cache.txt","w")
+    for url,header in l:
+        arch.write(url+'\n')
+        arch.write(header)
+        arch.write("\n----------\n")
+    arch.close()
+
+def limites(l):
+    if(len(l)>5):
+        return l[len(l)-5:]
+    else:
+        return l
+
+cache = leer_Cache()
+
+puertoServidor = 60331
+puertoUDP = 61231
 
 
 socketServidor = skt.socket(skt.AF_INET, skt.SOCK_STREAM)
@@ -26,36 +75,49 @@ while True:
             socketCliente.close()
             print("Cliente desconectado")
             break
+        
+        flag = 0
+        for nombre,encabezado in cache:
+            if mensaje == nombre:
+                headerUrl = encabezado
+                flag = 1
 
-        #Socket TCP para consulta HTTP
+            
+        if flag == 0:
 
-        socketURL = skt.socket(skt.AF_INET, skt.SOCK_STREAM)
+            #Consulta HTTP
 
-        socketURL.connect((mensaje,80))
+            socketURL = skt.socket(skt.AF_INET, skt.SOCK_STREAM)
 
-        request = "GET / HTTP/1.1\r\nHost: " + mensaje + "\r\n\r\n"
+            socketURL.connect((mensaje,80))
+
+            request = "GET / HTTP/1.1\r\nHost: " + mensaje + "\r\n\r\n"
 
 
-        socketURL.sendall(request.encode())
+            socketURL.sendall(request.encode())
 
-        data = socketURL.recv(1024)
+            data = socketURL.recv(1024)
 
-        respuesta = data.decode()
+            respuesta = data.decode()
 
-        #Rescartar Header
+            #Rescartar Header
 
-        n = 0
+            n = 0
 
-        for char in respuesta:
-            if char == '\r' and respuesta[n+1] == '\n' and respuesta[n+2] == '\r':
-                endHeader= n+2
-                break
-                
-                
+            for char in respuesta:
+                if char == '\r' and respuesta[n+1] == '\n' and respuesta[n+2] == '\r':
+                    endHeader= n+2
+                    break
+                    
+                    
 
-            n = n+1
+                n = n+1
 
-        headerUrl = respuesta[:n]
+            headerUrl = respuesta[:n]
+
+            cache.append((mensaje,headerUrl))
+            cache = limites(cache)
+            escribir_cache(cache)
 
         msg2= str(puertoUDP)
 
@@ -69,7 +131,6 @@ while True:
         mensajeUDP, asd = socketUDP.recvfrom(2048)
         print(mensajeUDP)
 
-        
 
         if mensajeUDP.decode() == "OK":
             print("Empezando transferencia")

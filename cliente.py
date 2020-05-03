@@ -1,6 +1,6 @@
 import socket as skt
 direccionServidor = "localhost"
-puertoServidor = 60339
+puertoServidor = 60331
 
 socketCliente = skt.socket(skt.AF_INET, skt.SOCK_STREAM)
 

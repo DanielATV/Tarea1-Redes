@@ -1,0 +1,8 @@
+HTTP/1.1 302 Found
+Connection: Keep-Alive
+Content-Type: text/html
+Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+Location: https://cutt.ly/
+Content-Length: 682
+Date: Sun, 03 May 2020 21:44:19 GMT
+

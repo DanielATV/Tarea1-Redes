@@ -1,0 +1,19 @@
+HTTP/1.1 301 Moved Permanently
+Date: Sun, 03 May 2020 21:23:41 GMT
+Content-Type: text/html; charset=iso-8859-1
+Transfer-Encoding: chunked
+Connection: keep-alive
+Set-Cookie: __cfduid=d89e13eae2190922cae73834d7f1448be1588541021; expires=Tue, 02-Jun-20 21:23:41 GMT; path=/; domain=.shorturl.at; HttpOnly; SameSite=Lax
+Location: https://www.shorturl.at/
+Cache-Control: max-age=2592000
+Expires: Tue, 02 Jun 2020 21:23:40 GMT
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+X-Nginx-Cache-Status: MISS
+X-Server-Powered-By: Engintron
+CF-Cache-Status: DYNAMIC
+Set-Cookie: __cf_bm=4c12bfd18e0433ccd4f8082883898e8550889687-1588541021-1800-Adcys4a25slnsx20tCnRtGJ6FC1GsphljDg6ylHtA6KoSh0seHHb275EBTuBfA13cH3drmEllpvNGHzO9MR8AUI=; path=/; expires=Sun, 03-May-20 21:53:41 GMT; domain=.shorturl.at; HttpOnly
+Server: cloudflare
+CF-RAY: 58dd0b674a1785c2-SCL
+cf-request-id: 027e057491000085c29110a200000001
+
